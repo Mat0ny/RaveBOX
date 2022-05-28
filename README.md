@@ -1,2 +1,2 @@
 # RaveBOX
-One knob synthesizer and sequencer
+Super simple, one knob synthesizer and sequencer
