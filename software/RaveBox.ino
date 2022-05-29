@@ -1,10 +1,14 @@
 /* 
  ### RaveBOX v1.0 ###
-                               
+ 
  Super simple, one knob synthesizer and sequencer
+ ATtiny45 @ 8 MHz (internal)
+ 
  Copyright (C) 2020-2022, Vladimir Bartos
- License: CC BY-NC-SA https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode
+ Licensed under a Creative Commons Attribution 4.0 International license:
+ CC BY-NC-SA https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode
 */
+
 
 #include <avr/io.h>
 #include <util/delay.h>
@@ -16,10 +20,7 @@
 #define BUT2      PB4
 #define POT       A1
 
-uint8_t mem[161];
-uint8_t seq;
-uint8_t a;
-
+uint8_t mem[161], seq, p, a;
 
 void setup() {
 
@@ -43,7 +44,11 @@ void loop() {
 
     // Save Tone
     if (digitalRead(BUT1) == 0) {
-      mem[seq] = 255 - analogRead(POT) / 4;
+      p = 255 - analogRead(POT) / 4;
+      if (p < 3) {
+        p = 3;
+      }
+      mem[seq] = p;
     }
 
     // Save Kick
